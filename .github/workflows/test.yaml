@@ -19,16 +19,27 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get current date
-        run: echo "BUILD_TIME=$(date +'%s')" >> $GITHUB_ENV
+        id: date
+        run: echo "date=$(date +%s)" >> $GITHUB_OUTPUT
+
+      - name: Use the date output
+        run: echo "The current date in seconds since epoch is: ${{ steps.date.outputs.date }}"
+
+    #   - name: Set output
+    #     id: date
+    #     run: echo "name=date" >> $GITHUB_OUTPUT
+
+    #   - name: Get current date
+    #     run: echo "BUILD_TIME=$(date +'%s')" >> $GITHUB_ENV
     
-      - name: Deploy using stored timestamp
-        run: echo "Deploying at $BUILD_TIME"
+    #   - name: Deploy using stored timestamp
+    #     run: echo "Deploying at $BUILD_TIME"
 
       - name: echo values
         run: |
-            echo "VERSION=${{ github.sha }}_$BUILD_TIME" >> $GITHUB_ENV
-            echo "VERSION=${{ github.sha }}_${{ steps.date.outputs.date }}" >> $GITHUB_ENV
-            echo "VERSION=${{ github.sha }}_$GITHUB_OUTPUT" >> $GITHUB_ENV
+            echo "VERSION=${{ github.sha }}_${{ env.BUILD_TIME }}" >> $GITHUB_ENV
+            # echo "VERSION=${{ github.sha }}_${{ steps.date.outputs.date }}" >> $GITHUB_ENV
+            # echo "VERSION=${{ github.sha }}_$GITHUB_OUTPUT" >> $GITHUB_ENV
 
       - name: show $GITHUB_ENV
         run: echo $GITHUB_ENV
