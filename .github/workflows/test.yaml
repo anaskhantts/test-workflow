@@ -21,16 +21,16 @@ jobs:
       - name: Get current date
         id: date
         # run: echo "::set-output name=date::$(date +%s)"
-        run: echo "{name}=date" >> $GITHUB_OUTPUT
+        run: echo "name=date" >> $GITHUB_OUTPUT
 
       - name: Store build timestamp
-        run: echo "BUILD_TIME=$(date +'%T')" >> $GITHUB_ENV
+        run: echo "BUILD_TIME=$(date +'%s')" >> $GITHUB_ENV
     
       - name: Deploy using stored timestamp
         run: echo "Deploying at $BUILD_TIME"
 
       - name: Use the date
-        run: echo "The current date in seconds is $GITHUB_OUTPUT"
+        run: echo "The current date in seconds is ${{ steps.date.outputs.date }}"
 
       - name: Send Status Notifications
         uses: act10ns/slack@v2
