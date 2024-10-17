@@ -25,7 +25,10 @@ jobs:
         run: echo "Deploying at $BUILD_TIME"
 
       - name: echo values
-        run: echo "VERSION=${{ github.sha }}_$BUILD_TIME" >> $GITHUB_ENV
+        run: |
+            echo "VERSION=${{ github.sha }}_$BUILD_TIME" >> $GITHUB_ENV
+            cat /home/runner/work/_temp/_runner_file_commands/set_env_ceca0129-4a7d-49dc-aa9a-aa124b4a59c9
+            echo "VERSION=${{ github.sha }}_${{ steps.date.outputs.date }}" >> $GITHUB_ENV
 
       - name: show $GITHUB_ENV
         run: echo $GITHUB_ENV
