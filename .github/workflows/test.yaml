@@ -23,11 +23,7 @@ jobs:
         run: echo "date=$(date +%s)" >> $GITHUB_OUTPUT
 
       - name: Use the date output
-        run: echo "The current date in seconds since epoch is: ${{ steps.date.outputs.date }}"
-
-    #   - name: Set output
-    #     id: date
-    #     run: echo "name=date" >> $GITHUB_OUTPUT
+        run: echo "The current date in seconds since epoch is ${{ steps.date.outputs.date }}"
 
     #   - name: Get current date
     #     run: echo "BUILD_TIME=$(date +'%s')" >> $GITHUB_ENV
