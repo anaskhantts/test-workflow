@@ -25,7 +25,7 @@ jobs:
         
 
       - name: Use the date
-        run: echo "The current date in seconds is ${{ steps.date.outputs.date }}"
+        run: echo "The current date in seconds is $GITHUB_OUTPUT"
 
       - name: Send Status Notifications
         uses: act10ns/slack@v2
