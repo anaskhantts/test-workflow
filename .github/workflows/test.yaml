@@ -22,6 +22,9 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +%s)"
 
+      - name: Use the date
+        run: echo "The current date in seconds is ${{ steps.date.outputs.date }}"
+
       - name: Send Status Notifications
         uses: act10ns/slack@v2
         with:
