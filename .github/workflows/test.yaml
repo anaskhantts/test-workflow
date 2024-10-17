@@ -1,0 +1,36 @@
+name: test workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+env:
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Send Status Notifications
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#github-deployments'
+        if: always()
+
+  update-dev-deployment-status:
+    needs: setup-build-publish-deploy
+    name: Update Development Deployment Status
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Update Dev Deployment Status
+        uses: actions/checkout@v2
