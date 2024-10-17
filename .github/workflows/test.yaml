@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Send Status Notifications
-        uses: act10ns/slack@v1
+        uses: act10ns/slack@v2
         with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
@@ -33,4 +33,4 @@ jobs:
     environment: development
     steps:
       - name: Update Dev Deployment Status
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
